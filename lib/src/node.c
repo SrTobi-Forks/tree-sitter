@@ -427,6 +427,10 @@ char *ts_node_string(TSNode self) {
   return ts_subtree_string(ts_node__subtree(self), self.tree->language, false);
 }
 
+uint32_t ts_node_first_error_recovery_position(TSNode self) {
+  return ts_subtree_first_error_recovery_position(ts_node__subtree(self), ts_node_start_byte(self), self.tree->language);
+}
+
 bool ts_node_eq(TSNode self, TSNode other) {
   return self.tree == other.tree && self.id == other.id;
 }

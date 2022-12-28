@@ -407,6 +407,11 @@ extern "C" {
     pub fn ts_node_string(arg1: TSNode) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
+    #[doc = " For an error node, returns the first location where the parser tried to recover."]
+    #[doc = " Returns 0 if the node is not an error node or if no recovery position can be found."]
+    pub fn ts_node_first_error_recovery_position(arg1: TSNode) -> u32;
+}
+extern "C" {
     #[doc = " Check if the node is null. Functions like `ts_node_child` and"]
     #[doc = " `ts_node_next_sibling` will return a null node to indicate that no such node"]
     #[doc = " was found."]

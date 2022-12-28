@@ -1154,6 +1154,11 @@ impl<'tree> Node<'tree> {
         result
     }
 
+    #[doc(alias = "ts_node_first_error_recovery_position")]
+    pub fn first_error_recovery_position(&self) -> usize {
+        (unsafe { ffi::ts_node_first_error_recovery_position(self.0) }) as usize
+    }
+
     pub fn utf8_text<'a>(&self, source: &'a [u8]) -> Result<&'a str, str::Utf8Error> {
         str::from_utf8(&source[self.start_byte()..self.end_byte()])
     }

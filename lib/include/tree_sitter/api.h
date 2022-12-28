@@ -465,6 +465,12 @@ TSPoint ts_node_end_point(TSNode);
 char *ts_node_string(TSNode);
 
 /**
+ * For an error node, returns the first location where the parser tried to recover.
+ * Returns 0 if the node is not an error node or if no recovery position can be found.
+ */
+uint32_t ts_node_first_error_recovery_position(TSNode);
+
+/**
  * Check if the node is null. Functions like `ts_node_child` and
  * `ts_node_next_sibling` will return a null node to indicate that no such node
  * was found.

@@ -950,6 +950,26 @@ char *ts_subtree_string(
   return result;
 }
 
+uint32_t ts_subtree_first_error_recovery_position(Subtree self, uint32_t start_offset, const TSLanguage *language) {
+  if (!ts_subtree_is_error(self)) {
+    return 0;
+  }
+
+  uint32_t child_start_offset = start_offset;
+
+  for (uint32_t i = 0; i < self.ptr->child_count; i++) {
+      Subtree child = ts_subtree_children(self)[i];
+
+      if (ts_subtree_symbol(child) == ts_builtin_sym_error_repeat) {
+        return child_start_offset;
+      }
+      
+      child_start_offset += ts_subtree_total_bytes(child);
+  }
+
+  return 0;
+}
+
 void ts_subtree__print_dot_graph(const Subtree *self, uint32_t start_offset,
                                  const TSLanguage *language, TSSymbol alias_symbol,
                                  FILE *f) {
